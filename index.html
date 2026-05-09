@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Monitoring Smart Greenhouse</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background: #f0f4f8;
+      padding: 30px;
+    }
+
+    h1{
+      text-align:center;
+      margin-bottom:30px;
+      color:#1e293b;
+    }
+
+    .container{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:white;
+      border-radius:20px;
+      padding:25px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    .title{
+      font-size:18px;
+      color:#64748b;
+      margin-bottom:15px;
+    }
+
+    .value{
+      font-size:38px;
+      font-weight:bold;
+      color:#0f172a;
+    }
+
+    .status-on{
+      color:green;
+      font-weight:bold;
+    }
+
+    .status-off{
+      color:red;
+      font-weight:bold;
+    }
+
+    .icon{
+      font-size:50px;
+      margin-bottom:15px;
+    }
+
+    .footer{
+      text-align:center;
+      margin-top:30px;
+      color:#64748b;
+    }
+
+    @media(max-width:600px){
+      .value{
+        font-size:30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌱 Monitoring Smart Greenhouse</h1>
+
+  <div class="container">
+
+    <!-- Suhu -->
+    <div class="card">
+      <div class="icon">🌡️</div>
+      <div class="title">Suhu</div>
+      <div class="value" id="suhu">28°C</div>
+    </div>
+
+    <!-- Kelembaban Tanah -->
+    <div class="card">
+      <div class="icon">💧</div>
+      <div class="title">Kelembaban Tanah</div>
+      <div class="value" id="soil">65%</div>
+    </div>
+
+    <!-- LDR -->
+    <div class="card">
+      <div class="icon">☀️</div>
+      <div class="title">Intensitas Cahaya (LDR)</div>
+      <div class="value" id="ldr">Terang</div>
+    </div>
+
+    <!-- Status Hujan -->
+    <div class="card">
+      <div class="icon">🌧️</div>
+      <div class="title">Status Hujan</div>
+      <div class="value status-on" id="hujan">Hujan</div>
+    </div>
+
+    <!-- Status Pompa -->
+    <div class="card">
+      <div class="icon">🚿</div>
+      <div class="title">Pompa Air</div>
+      <div class="value status-on" id="pompa">Menyala</div>
+    </div>
+
+    <!-- Status Atap -->
+    <div class="card">
+      <div class="icon">🏠</div>
+      <div class="title">Kondisi Atap</div>
+      <div class="value status-off" id="atap">Tertutup</div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Smart Monitoring System ESP32
+  </div>
+
+  <script>
+    // Contoh data dummy otomatis berubah
+
+    setInterval(() => {
+
+      // Suhu random
+      let suhu = Math.floor(Math.random() * 10) + 25;
+      document.getElementById("suhu").innerHTML = suhu + "°C";
+
+      // Soil random
+      let soil = Math.floor(Math.random() * 40) + 40;
+      document.getElementById("soil").innerHTML = soil + "%";
+
+      // LDR
+      let terang = Math.random() > 0.5;
+      document.getElementById("ldr").innerHTML = terang ? "Terang" : "Gelap";
+
+      // Hujan
+      let hujan = Math.random() > 0.5;
+      let hujanElement = document.getElementById("hujan");
+
+      hujanElement.innerHTML = hujan ? "Hujan" : "Tidak Hujan";
+      hujanElement.className = hujan ? "value status-on" : "value status-off";
+
+      // Pompa
+      let pompa = Math.random() > 0.5;
+      let pompaElement = document.getElementById("pompa");
+
+      pompaElement.innerHTML = pompa ? "Menyala" : "Mati";
+      pompaElement.className = pompa ? "value status-on" : "value status-off";
+
+      // Atap
+      let atap = Math.random() > 0.5;
+      let atapElement = document.getElementById("atap");
+
+      atapElement.innerHTML = atap ? "Terbuka" : "Tertutup";
+      atapElement.className = atap ? "value status-on" : "value status-off";
+
+    }, 3000);
+  </script>
+
+</body>
+</html>
