@@ -1,181 +1,356 @@
+# UI Dashboard Glassmorphism HTML
+
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Monitoring Smart Greenhouse</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Monitoring UI</title>
 
   <style>
     *{
       margin:0;
       padding:0;
       box-sizing:border-box;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
 
     body{
-      background: #f0f4f8;
-      padding: 30px;
+      min-height:100vh;
+      background: linear-gradient(135deg,#ffd6e7,#d8e9ff,#d8fff2);
+      padding:40px;
     }
 
-    h1{
+    .title{
       text-align:center;
-      margin-bottom:30px;
+      margin-bottom:40px;
+    }
+
+    .title h1{
+      font-size:38px;
       color:#1e293b;
+      margin-bottom:10px;
+    }
+
+    .title p{
+      color:#64748b;
+      letter-spacing:4px;
+      font-size:14px;
     }
 
     .container{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap:20px;
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      gap:25px;
     }
 
     .card{
-      background:white;
-      border-radius:20px;
+      background: rgba(255,255,255,0.35);
+      backdrop-filter: blur(15px);
+      border:1px solid rgba(255,255,255,0.4);
+      border-radius:25px;
       padding:25px;
-      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+      box-shadow:0 10px 25px rgba(0,0,0,0.08);
       transition:0.3s;
     }
 
     .card:hover{
-      transform:translateY(-5px);
+      transform:translateY(-6px);
     }
 
-    .title{
-      font-size:18px;
-      color:#64748b;
+    .card-title{
+      font-size:20px;
+      color:#334155;
+      margin-bottom:20px;
+      font-weight:600;
+    }
+
+    .sensor-box{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px;
+      border-radius:18px;
+      background:white;
       margin-bottom:15px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);
     }
 
-    .value{
-      font-size:38px;
+    .sensor-left{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .icon{
+      width:55px;
+      height:55px;
+      border-radius:15px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:26px;
+      background:linear-gradient(135deg,#60a5fa,#2563eb);
+      color:white;
+    }
+
+    .sensor-name{
+      font-size:16px;
+      color:#64748b;
+      margin-bottom:5px;
+    }
+
+    .sensor-value{
+      font-size:24px;
       font-weight:bold;
       color:#0f172a;
     }
 
     .status-on{
-      color:green;
+      padding:10px 18px;
+      border-radius:12px;
+      background:#dcfce7;
+      color:#166534;
       font-weight:bold;
     }
 
     .status-off{
-      color:red;
+      padding:10px 18px;
+      border-radius:12px;
+      background:#fee2e2;
+      color:#991b1b;
       font-weight:bold;
     }
 
-    .icon{
-      font-size:50px;
+    .progress-box{
+      margin-top:15px;
+    }
+
+    .progress-title{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:10px;
+      color:#475569;
+    }
+
+    .progress{
+      width:100%;
+      height:14px;
+      background:#e2e8f0;
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    .progress-fill{
+      height:100%;
+      border-radius:20px;
+      background:linear-gradient(90deg,#38bdf8,#2563eb);
+    }
+
+    .switch-group{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:white;
+      padding:18px;
+      border-radius:18px;
       margin-bottom:15px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);
     }
 
-    .footer{
-      text-align:center;
-      margin-top:30px;
-      color:#64748b;
+    .switch{
+      position:relative;
+      display:inline-block;
+      width:60px;
+      height:30px;
     }
 
-    @media(max-width:600px){
-      .value{
-        font-size:30px;
+    .switch input{
+      opacity:0;
+      width:0;
+      height:0;
+    }
+
+    .slider{
+      position:absolute;
+      cursor:pointer;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      background:#cbd5e1;
+      transition:0.4s;
+      border-radius:30px;
+    }
+
+    .slider:before{
+      position:absolute;
+      content:"";
+      height:22px;
+      width:22px;
+      left:4px;
+      bottom:4px;
+      background:white;
+      transition:0.4s;
+      border-radius:50%;
+    }
+
+    input:checked + .slider{
+      background:#2563eb;
+    }
+
+    input:checked + .slider:before{
+      transform:translateX(30px);
+    }
+
+    @media(max-width:768px){
+      body{
+        padding:20px;
+      }
+
+      .title h1{
+        font-size:28px;
       }
     }
   </style>
 </head>
 <body>
 
-  <h1>🌱 Monitoring Smart Greenhouse</h1>
+  <div class="title">
+    <h1>Smart Greenhouse Dashboard</h1>
+    <p>WEB UI/UX MONITORING SYSTEM</p>
+  </div>
 
   <div class="container">
 
-    <!-- Suhu -->
+    <!-- SENSOR DATA -->
     <div class="card">
-      <div class="icon">🌡️</div>
-      <div class="title">Suhu</div>
-      <div class="value" id="suhu">28°C</div>
+      <div class="card-title">Monitoring Sensor</div>
+
+      <div class="sensor-box">
+        <div class="sensor-left">
+          <div class="icon">🌡️</div>
+          <div>
+            <div class="sensor-name">Suhu</div>
+            <div class="sensor-value">28°C</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sensor-box">
+        <div class="sensor-left">
+          <div class="icon">💧</div>
+          <div>
+            <div class="sensor-name">Kelembaban Tanah</div>
+            <div class="sensor-value">70%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sensor-box">
+        <div class="sensor-left">
+          <div class="icon">☀️</div>
+          <div>
+            <div class="sensor-name">LDR</div>
+            <div class="sensor-value">Terang</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Kelembaban Tanah -->
+    <!-- STATUS -->
     <div class="card">
-      <div class="icon">💧</div>
-      <div class="title">Kelembaban Tanah</div>
-      <div class="value" id="soil">65%</div>
+      <div class="card-title">Status Sistem</div>
+
+      <div class="switch-group">
+        <span>Status Hujan</span>
+        <div class="status-on">Hujan</div>
+      </div>
+
+      <div class="switch-group">
+        <span>Pompa Air</span>
+        <div class="status-on">Menyala</div>
+      </div>
+
+      <div class="switch-group">
+        <span>Kondisi Atap</span>
+        <div class="status-off">Tertutup</div>
+      </div>
     </div>
 
-    <!-- LDR -->
+    <!-- PROGRESS -->
     <div class="card">
-      <div class="icon">☀️</div>
-      <div class="title">Intensitas Cahaya (LDR)</div>
-      <div class="value" id="ldr">Terang</div>
+      <div class="card-title">Progress Monitoring</div>
+
+      <div class="progress-box">
+        <div class="progress-title">
+          <span>Kelembaban Tanah</span>
+          <span>70%</span>
+        </div>
+
+        <div class="progress">
+          <div class="progress-fill" style="width:70%"></div>
+        </div>
+      </div>
+
+      <div class="progress-box">
+        <div class="progress-title">
+          <span>Suhu Ruangan</span>
+          <span>60%</span>
+        </div>
+
+        <div class="progress">
+          <div class="progress-fill" style="width:60%"></div>
+        </div>
+      </div>
+
+      <div class="progress-box">
+        <div class="progress-title">
+          <span>Cahaya</span>
+          <span>85%</span>
+        </div>
+
+        <div class="progress">
+          <div class="progress-fill" style="width:85%"></div>
+        </div>
+      </div>
     </div>
 
-    <!-- Status Hujan -->
+    <!-- SWITCH CONTROL -->
     <div class="card">
-      <div class="icon">🌧️</div>
-      <div class="title">Status Hujan</div>
-      <div class="value status-on" id="hujan">Hujan</div>
-    </div>
+      <div class="card-title">Kontrol Sistem</div>
 
-    <!-- Status Pompa -->
-    <div class="card">
-      <div class="icon">🚿</div>
-      <div class="title">Pompa Air</div>
-      <div class="value status-on" id="pompa">Menyala</div>
-    </div>
+      <div class="switch-group">
+        <span>Pompa Air</span>
 
-    <!-- Status Atap -->
-    <div class="card">
-      <div class="icon">🏠</div>
-      <div class="title">Kondisi Atap</div>
-      <div class="value status-off" id="atap">Tertutup</div>
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="switch-group">
+        <span>Atap Otomatis</span>
+
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="switch-group">
+        <span>Mode Malam</span>
+
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider"></span>
+        </label>
+      </div>
     </div>
 
   </div>
-
-  <div class="footer">
-    Smart Monitoring System ESP32
-  </div>
-
-  <script>
-    // Contoh data dummy otomatis berubah
-
-    setInterval(() => {
-
-      // Suhu random
-      let suhu = Math.floor(Math.random() * 10) + 25;
-      document.getElementById("suhu").innerHTML = suhu + "°C";
-
-      // Soil random
-      let soil = Math.floor(Math.random() * 40) + 40;
-      document.getElementById("soil").innerHTML = soil + "%";
-
-      // LDR
-      let terang = Math.random() > 0.5;
-      document.getElementById("ldr").innerHTML = terang ? "Terang" : "Gelap";
-
-      // Hujan
-      let hujan = Math.random() > 0.5;
-      let hujanElement = document.getElementById("hujan");
-
-      hujanElement.innerHTML = hujan ? "Hujan" : "Tidak Hujan";
-      hujanElement.className = hujan ? "value status-on" : "value status-off";
-
-      // Pompa
-      let pompa = Math.random() > 0.5;
-      let pompaElement = document.getElementById("pompa");
-
-      pompaElement.innerHTML = pompa ? "Menyala" : "Mati";
-      pompaElement.className = pompa ? "value status-on" : "value status-off";
-
-      // Atap
-      let atap = Math.random() > 0.5;
-      let atapElement = document.getElementById("atap");
-
-      atapElement.innerHTML = atap ? "Terbuka" : "Tertutup";
-      atapElement.className = atap ? "value status-on" : "value status-off";
-
-    }, 3000);
-  </script>
 
 </body>
 </html>
+```
